@@ -63,23 +63,29 @@ namespace Tracker
             return name;
         }
     }
-
+   
     public class Formula
     {
-        private string name;
         private Topic topic;
         private Subject subject;
+        
+        public string name { get; set; }
+        
+        public string formula { get; set; }
+        public string description { get; set; }
 
-        public Formula(string name, Topic parent,Subject grandparent)
+        public Formula(string name, Topic top, Subject sub)
         {
             this.name = name;
-            this.topic = parent;
-            this.subject = grandparent;
+            this.topic = top;
+
+            this.subject = sub;
         }
 
         public override string ToString()
         {
             return name;
         }
+
     }
 }

@@ -15,6 +15,7 @@ namespace Tracker
     {
         private BindingList<Subject> subjects;
 
+        Formula currentSelection;
         public TrackerForm()
         {
             InitializeComponent();
@@ -42,17 +43,38 @@ namespace Tracker
 
         private void listSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listTopic.DisplayMember = "name";
-
             Subject temp = (Subject)listSubject.SelectedValue;
+
+            listTopic.DisplayMember = "name";
             listTopic.DataSource = temp.topics;
 
         }
 
         private void listTopic_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Topic t = (Topic) listTopic.SelectedValue;
-            Console.WriteLine(t.formulas[0].ToString());
+            Topic t = (Topic)listTopic.SelectedValue; 
+
+            listFormula.DataSource = t.formulas;
+        }
+
+        private void listFormula_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Formula f = (Formula)listFormula.SelectedValue;
+            currentSelection = f;
+
+            propName.Text = currentSelection.name;
+            propDescription.Text = currentSelection.description;
+            propFormula.Text = currentSelection.formula;
+
+        }
+
+        private void propSave_Click(object sender, EventArgs e)
+        {
+            if(currentSelection != null)
+            {
+                currentSelection.formula = propFormula.Text;
+                currentSelection.description = propDescription.Text;
+            }
         }
     }
 }
