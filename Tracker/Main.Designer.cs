@@ -36,24 +36,26 @@
             this.menuDataFormula = new System.Windows.Forms.ToolStripMenuItem();
             this.dataManipulation = new System.Windows.Forms.Panel();
             this.listFormula = new System.Windows.Forms.ListBox();
-            this.formulaDelete = new System.Windows.Forms.Button();
-            this.formulaAdd = new System.Windows.Forms.Button();
+            this.formulaOptions = new System.Windows.Forms.Button();
             this.topicOptions = new System.Windows.Forms.Button();
             this.subjectOptions = new System.Windows.Forms.Button();
             this.listTopic = new System.Windows.Forms.ListBox();
             this.listSubject = new System.Windows.Forms.ListBox();
-            this.dataInformation = new System.Windows.Forms.Panel();
             this.formulaPicture = new System.Windows.Forms.PictureBox();
-            this.propName = new System.Windows.Forms.Label();
-            this.propDescription = new System.Windows.Forms.RichTextBox();
+            this.dataInformation = new System.Windows.Forms.Panel();
+            this.propLabelDescription = new System.Windows.Forms.Label();
+            this.propLabelFormula = new System.Windows.Forms.Label();
             this.propSave = new System.Windows.Forms.Button();
             this.propFormula = new System.Windows.Forms.RichTextBox();
-            this.propLabelFormula = new System.Windows.Forms.Label();
-            this.propLabelDescription = new System.Windows.Forms.Label();
+            this.propDescription = new System.Windows.Forms.RichTextBox();
+            this.propName = new System.Windows.Forms.Label();
+            this.status = new System.Windows.Forms.StatusStrip();
+            this.statusSay = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuBar.SuspendLayout();
             this.dataManipulation.SuspendLayout();
-            this.dataInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formulaPicture)).BeginInit();
+            this.dataInformation.SuspendLayout();
+            this.status.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuBar
@@ -73,6 +75,7 @@
             this.menuExit.Name = "menuExit";
             this.menuExit.Size = new System.Drawing.Size(37, 20);
             this.menuExit.Text = "Exit";
+            this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
             // 
             // menuData
             // 
@@ -106,8 +109,7 @@
             // 
             this.dataManipulation.BackColor = System.Drawing.SystemColors.ControlLight;
             this.dataManipulation.Controls.Add(this.listFormula);
-            this.dataManipulation.Controls.Add(this.formulaDelete);
-            this.dataManipulation.Controls.Add(this.formulaAdd);
+            this.dataManipulation.Controls.Add(this.formulaOptions);
             this.dataManipulation.Controls.Add(this.topicOptions);
             this.dataManipulation.Controls.Add(this.subjectOptions);
             this.dataManipulation.Controls.Add(this.listTopic);
@@ -115,7 +117,7 @@
             this.dataManipulation.Controls.Add(this.formulaPicture);
             this.dataManipulation.Location = new System.Drawing.Point(13, 28);
             this.dataManipulation.Name = "dataManipulation";
-            this.dataManipulation.Size = new System.Drawing.Size(417, 479);
+            this.dataManipulation.Size = new System.Drawing.Size(417, 466);
             this.dataManipulation.TabIndex = 1;
             // 
             // listFormula
@@ -127,23 +129,15 @@
             this.listFormula.TabIndex = 7;
             this.listFormula.SelectedIndexChanged += new System.EventHandler(this.listFormula_SelectedIndexChanged);
             // 
-            // formulaDelete
+            // formulaOptions
             // 
-            this.formulaDelete.Location = new System.Drawing.Point(210, 450);
-            this.formulaDelete.Name = "formulaDelete";
-            this.formulaDelete.Size = new System.Drawing.Size(200, 26);
-            this.formulaDelete.TabIndex = 6;
-            this.formulaDelete.Text = "Delete Formula";
-            this.formulaDelete.UseVisualStyleBackColor = true;
-            // 
-            // formulaAdd
-            // 
-            this.formulaAdd.Location = new System.Drawing.Point(4, 450);
-            this.formulaAdd.Name = "formulaAdd";
-            this.formulaAdd.Size = new System.Drawing.Size(200, 26);
-            this.formulaAdd.TabIndex = 5;
-            this.formulaAdd.Text = "Add New Formula";
-            this.formulaAdd.UseVisualStyleBackColor = true;
+            this.formulaOptions.Location = new System.Drawing.Point(4, 437);
+            this.formulaOptions.Name = "formulaOptions";
+            this.formulaOptions.Size = new System.Drawing.Size(406, 26);
+            this.formulaOptions.TabIndex = 6;
+            this.formulaOptions.Text = "Formula Options";
+            this.formulaOptions.UseVisualStyleBackColor = true;
+            this.formulaOptions.Click += new System.EventHandler(this.formulaOptions_Click);
             // 
             // topicOptions
             // 
@@ -153,6 +147,7 @@
             this.topicOptions.TabIndex = 4;
             this.topicOptions.Text = "Topic Options";
             this.topicOptions.UseVisualStyleBackColor = true;
+            this.topicOptions.Click += new System.EventHandler(this.topicOptions_Click);
             // 
             // subjectOptions
             // 
@@ -162,6 +157,7 @@
             this.subjectOptions.TabIndex = 3;
             this.subjectOptions.Text = "Subject Options";
             this.subjectOptions.UseVisualStyleBackColor = true;
+            this.subjectOptions.Click += new System.EventHandler(this.subjectOptions_Click);
             // 
             // listTopic
             // 
@@ -181,6 +177,16 @@
             this.listSubject.TabIndex = 0;
             this.listSubject.SelectedIndexChanged += new System.EventHandler(this.listSubject_SelectedIndexChanged);
             // 
+            // formulaPicture
+            // 
+            this.formulaPicture.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.formulaPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.formulaPicture.Location = new System.Drawing.Point(4, 252);
+            this.formulaPicture.Name = "formulaPicture";
+            this.formulaPicture.Size = new System.Drawing.Size(406, 179);
+            this.formulaPicture.TabIndex = 8;
+            this.formulaPicture.TabStop = false;
+            // 
             // dataInformation
             // 
             this.dataInformation.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -192,42 +198,34 @@
             this.dataInformation.Controls.Add(this.propName);
             this.dataInformation.Location = new System.Drawing.Point(437, 28);
             this.dataInformation.Name = "dataInformation";
-            this.dataInformation.Size = new System.Drawing.Size(398, 479);
+            this.dataInformation.Size = new System.Drawing.Size(398, 466);
             this.dataInformation.TabIndex = 2;
             // 
-            // formulaPicture
+            // propLabelDescription
             // 
-            this.formulaPicture.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.formulaPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.formulaPicture.Location = new System.Drawing.Point(4, 252);
-            this.formulaPicture.Name = "formulaPicture";
-            this.formulaPicture.Size = new System.Drawing.Size(406, 192);
-            this.formulaPicture.TabIndex = 8;
-            this.formulaPicture.TabStop = false;
+            this.propLabelDescription.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.propLabelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.propLabelDescription.Location = new System.Drawing.Point(7, 182);
+            this.propLabelDescription.Name = "propLabelDescription";
+            this.propLabelDescription.Size = new System.Drawing.Size(93, 19);
+            this.propLabelDescription.TabIndex = 14;
+            this.propLabelDescription.Text = "Description";
+            this.propLabelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // propName
+            // propLabelFormula
             // 
-            this.propName.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.propName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.propName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.propName.Location = new System.Drawing.Point(3, 4);
-            this.propName.Name = "propName";
-            this.propName.Size = new System.Drawing.Size(392, 58);
-            this.propName.TabIndex = 9;
-            this.propName.Text = "label1";
-            this.propName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // propDescription
-            // 
-            this.propDescription.Location = new System.Drawing.Point(7, 204);
-            this.propDescription.Name = "propDescription";
-            this.propDescription.Size = new System.Drawing.Size(378, 180);
-            this.propDescription.TabIndex = 10;
-            this.propDescription.Text = "";
+            this.propLabelFormula.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.propLabelFormula.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.propLabelFormula.Location = new System.Drawing.Point(7, 80);
+            this.propLabelFormula.Name = "propLabelFormula";
+            this.propLabelFormula.Size = new System.Drawing.Size(93, 19);
+            this.propLabelFormula.TabIndex = 13;
+            this.propLabelFormula.Text = "LaTex Formula";
+            this.propLabelFormula.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // propSave
             // 
-            this.propSave.Location = new System.Drawing.Point(7, 450);
+            this.propSave.Location = new System.Drawing.Point(3, 439);
             this.propSave.Name = "propSave";
             this.propSave.Size = new System.Drawing.Size(183, 23);
             this.propSave.TabIndex = 11;
@@ -243,33 +241,48 @@
             this.propFormula.TabIndex = 12;
             this.propFormula.Text = "";
             // 
-            // propLabelFormula
+            // propDescription
             // 
-            this.propLabelFormula.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.propLabelFormula.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.propLabelFormula.Location = new System.Drawing.Point(7, 80);
-            this.propLabelFormula.Name = "propLabelFormula";
-            this.propLabelFormula.Size = new System.Drawing.Size(93, 19);
-            this.propLabelFormula.TabIndex = 13;
-            this.propLabelFormula.Text = "LaTex Formula";
-            this.propLabelFormula.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.propDescription.Location = new System.Drawing.Point(7, 204);
+            this.propDescription.Name = "propDescription";
+            this.propDescription.Size = new System.Drawing.Size(378, 180);
+            this.propDescription.TabIndex = 10;
+            this.propDescription.Text = "";
             // 
-            // propLabelDescription
+            // propName
             // 
-            this.propLabelDescription.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.propLabelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.propLabelDescription.Location = new System.Drawing.Point(7, 182);
-            this.propLabelDescription.Name = "propLabelDescription";
-            this.propLabelDescription.Size = new System.Drawing.Size(93, 19);
-            this.propLabelDescription.TabIndex = 14;
-            this.propLabelDescription.Text = "Description";
-            this.propLabelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.propName.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.propName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.propName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.propName.Location = new System.Drawing.Point(3, 4);
+            this.propName.Name = "propName";
+            this.propName.Size = new System.Drawing.Size(392, 58);
+            this.propName.TabIndex = 9;
+            this.propName.Text = "No Formula Selected";
+            this.propName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // status
+            // 
+            this.status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusSay});
+            this.status.Location = new System.Drawing.Point(0, 497);
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(847, 22);
+            this.status.TabIndex = 3;
+            this.status.Text = "statusStrip1";
+            // 
+            // statusSay
+            // 
+            this.statusSay.Name = "statusSay";
+            this.statusSay.Size = new System.Drawing.Size(67, 17);
+            this.statusSay.Text = "Initializing..";
             // 
             // TrackerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 519);
+            this.Controls.Add(this.status);
             this.Controls.Add(this.dataInformation);
             this.Controls.Add(this.dataManipulation);
             this.Controls.Add(this.menuBar);
@@ -280,8 +293,10 @@
             this.menuBar.ResumeLayout(false);
             this.menuBar.PerformLayout();
             this.dataManipulation.ResumeLayout(false);
-            this.dataInformation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.formulaPicture)).EndInit();
+            this.dataInformation.ResumeLayout(false);
+            this.status.ResumeLayout(false);
+            this.status.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,8 +311,7 @@
         private System.Windows.Forms.Button subjectOptions;
         private System.Windows.Forms.ListBox listTopic;
         private System.Windows.Forms.ListBox listSubject;
-        private System.Windows.Forms.Button formulaDelete;
-        private System.Windows.Forms.Button formulaAdd;
+        private System.Windows.Forms.Button formulaOptions;
         private System.Windows.Forms.ToolStripMenuItem menuData;
         private System.Windows.Forms.ToolStripMenuItem menuDataSubject;
         private System.Windows.Forms.ToolStripMenuItem menuDataTopic;
@@ -311,6 +325,8 @@
         private System.Windows.Forms.RichTextBox propFormula;
         private System.Windows.Forms.Label propLabelFormula;
         private System.Windows.Forms.Label propLabelDescription;
+        private System.Windows.Forms.StatusStrip status;
+        private System.Windows.Forms.ToolStripStatusLabel statusSay;
     }
 }
 

@@ -28,6 +28,16 @@ namespace Tracker
             Topic t = new Topic(name, this);
             topics.Add(t);
         }
+        public void addTopic()
+        {
+            Topic t = new Topic("Empty Topic", this);
+            topics.Add(t);
+        }
+
+        public void deleteTopic(Topic t)
+        {
+            topics.Remove(t);
+        }
 
         public override string ToString()
         {
@@ -37,7 +47,7 @@ namespace Tracker
 
     public class Topic
     {
-        private string name;
+        public string name;
         private Subject subject;
         public BindingList<Formula> formulas;
 
@@ -56,6 +66,16 @@ namespace Tracker
         {
             Formula f = new Formula(name, this, this.subject);
             formulas.Add(f);
+        }
+        public void addFormula()
+        {
+            Formula f = new Formula("Empty Formula", this, this.subject);
+            formulas.Add(f);
+        }
+
+        public void deleteFormula(Formula f)
+        {
+            formulas.Remove(f);
         }
 
         public override string ToString()
