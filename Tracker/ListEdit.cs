@@ -12,13 +12,17 @@ namespace Tracker
 {
     public partial class ListEdit : Form
     {
+        //The same form changes behaviour with respect to the type it was called with.
+
         public enum listType { Subject, Topic, Formula };
         private listType type;
 
+        //Takes the main subject list and the current selected items as class constructor arguments.
         private BindingList<Subject> subjects;
         private Subject selectedSubject;
         private Topic selectedTopic;
 
+        //For calling this for a list of formulas (as they need both selected subject and topic)
         public ListEdit(BindingList<Subject> sb, Subject selSub, Topic selTop, listType t)
         {
             type = t;
@@ -30,6 +34,7 @@ namespace Tracker
             InitializeComponent();
         }
 
+        //For calling this for a list of formulas (as they need onlu selected subject)
         public ListEdit(BindingList<Subject> sb, Subject selSub, listType t)
         {
             type = t;
@@ -41,6 +46,7 @@ namespace Tracker
             InitializeComponent();
         }
 
+        //For calling this for a list of subjects
         public ListEdit(BindingList<Subject> sb, listType t)
         {
             type = t;
@@ -52,6 +58,7 @@ namespace Tracker
             InitializeComponent();
         }
 
+        //Sets up all the buttons/lists/names according to the type that was selected
         private void ListEdit_Load(object sender, EventArgs e)
         {
             switch (type)
@@ -83,6 +90,7 @@ namespace Tracker
             }
         }
 
+        //When an item is added to the list
         private void addToList_Click(object sender, EventArgs e)
         {
             switch (type)
@@ -102,6 +110,7 @@ namespace Tracker
             }
         }
 
+        //Remove the selected item from the list
         private void removeFromList_Click(object sender, EventArgs e)
         {
             switch (type)
@@ -118,6 +127,7 @@ namespace Tracker
             }
         }
         
+        //When the selected item is changed i.e new item is selected
         private void itemList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (itemList.SelectedValue != null)
@@ -127,9 +137,10 @@ namespace Tracker
             }
         }
 
+        //Save the name of the item in the list
         private void saveItem_Click(object sender, EventArgs e)
         {
-            if (itemList.SelectedValue != null)
+            if (itemList.SelectedValue != null && String.IsNullOrEmpty(itemName.Text) == false)
             {
                 switch (type)
                 {
@@ -156,8 +167,13 @@ namespace Tracker
                         break;
                 }
             }
+            else
+            {
+                statusSay.Text = "Invalid name or selection.";
+            }
         }
 
+        //Give a OK when the form is closed so that we know no error occured
         private void ListEdit_FormClosed(object sender, FormClosedEventArgs e)
         {
             DialogResult = DialogResult.OK;

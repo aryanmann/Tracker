@@ -11,10 +11,14 @@ using System.Windows.Forms;
 
 namespace Tracker
 {
+
     public partial class TrackerForm : Form
     {
+
+        //Contains a list of all subjects and the data (topics->formulas) contained within them. 
         private BindingList<Subject> subjects;
 
+        //The current selected item in their respecitve lists (can be null)
         Subject currentSubject;
         Topic currentTopic;
         Formula currentFormula;
@@ -25,6 +29,7 @@ namespace Tracker
 
             subjects = new BindingList<Subject>();
 
+            //display the name property of the subjects in the list of subjects
             listSubject.DisplayMember = "name";
             listSubject.DataSource = subjects;
             
@@ -32,9 +37,12 @@ namespace Tracker
 
         private void TrackerForm_Load(object sender, EventArgs e)
         {
+            //The bottom bar that tells you information.
             statusSay.Text = "Initialized";
         }
 
+        
+        //When a new item on the subject list is selected, update all other lists and show the first formula of the first topic
         private void listSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentSubject = (Subject)listSubject.SelectedValue;
@@ -56,6 +64,7 @@ namespace Tracker
             listFormula.DataSource = null;
         }
 
+        //Same principle as above method
         private void listTopic_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentTopic = (Topic)listTopic.SelectedValue;
@@ -73,6 +82,7 @@ namespace Tracker
             }
         }
 
+        //Same principle as above method
         private void listFormula_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentFormula = (Formula)listFormula.SelectedValue;
@@ -95,6 +105,7 @@ namespace Tracker
             }
         }
 
+        //When the details of the formula are saved, update the details in the right panel
         private void propSave_Click(object sender, EventArgs e)
         {
             if(currentFormula != null)
@@ -104,6 +115,7 @@ namespace Tracker
             }
         }
 
+        //Add or remove subjects in a new dialogue box
         private void subjectOptions_Click(object sender, EventArgs e)
         {
             ListEdit ld = new ListEdit(subjects, ListEdit.listType.Subject);
@@ -116,6 +128,7 @@ namespace Tracker
             }
         }
 
+        //Add or remove topics in a new dialogue box
         private void topicOptions_Click(object sender, EventArgs e)
         {
             currentSubject = (Subject)listSubject.SelectedValue;
@@ -144,6 +157,7 @@ namespace Tracker
 
         }
 
+        //Add or remove formulas in a new dialogue box
         private void formulaOptions_Click(object sender, EventArgs e)
         {
             currentSubject = (Subject)listSubject.SelectedValue;
@@ -166,21 +180,7 @@ namespace Tracker
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (currentSubject != null)
-                Console.WriteLine(currentSubject.ToString());
-            else Console.WriteLine("\nNo Subject");
-
-            if (currentTopic != null)
-                Console.WriteLine(currentTopic.ToString());
-            else Console.WriteLine("No Topic");
-
-            if (currentFormula != null)
-                Console.WriteLine(currentFormula.ToString());
-            else Console.WriteLine("No Formula\n");
-        }
-
+        //The exit button on the navigation bar
         private void menuExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
